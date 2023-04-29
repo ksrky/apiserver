@@ -8,12 +8,6 @@ from .models import User
 from .serializer import UserSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    lookup_field = 'username'
-    serializer_class = UserSerializer
-
-
 # User Creation (POST)
 class UserCreate(generics.CreateAPIView):
     lookup_field = 'username'
@@ -30,7 +24,7 @@ class UserCreate(generics.CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserDetail(generics.RetrieveAPIView):
+class UserDetail(generics.RetrieveAPIView, generics.UpdateAPIView):
     lookup_field = 'username'
     queryset = User.objects.all()
     serializer_class = UserSerializer
